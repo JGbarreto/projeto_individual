@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/styleDash.css">
+        <link rel="icon" type="image/x-icon" href="assets/LogoSimbolo.png">
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+        <title>SAMP</title>
+    </head>
+
+    <body onload="validarSessao(), listarMaquinasSlc(sessionStorage.ID_EMPRESA)">
+
+        <div class="header_dash">
+            <nav class="nav_dash">
+                <div class="header_menu">
+                    <img src="../assets/icons/burger-bar.png" onclick="botaoMenu()">
+                </div>
+                <div class="header_logo">
+                    <img src="../assets/logobranca.png">
+                </div>
+            </nav>
+            
+        </div>
+
+        <div class="menu" id="sidebar">
+
+            <h2 id="nome_empresa">C6</h2>
+            <ul id="ul_maquinas">
+              <!--  <li class="item-selecionado">
+                    <a><img src="../assets/icons/server.png">Servidor 01</a>
+                </li>
+                <li>
+                    <a><img src="../assets/icons/server.png">Servidor 02</a>
+                </li>
+                <li>
+                    <a><img src="../assets/icons/server.png">Servidor 03</a>
+                </li>
+                <li>
+                    <a><img src="../assets/icons/server.png">Servidor 04</a>
+                </li>-->
+                <li>
+                    <a href="analise.html"><img src="../assets/icons/bar-chart.png">Análise</a>
+                </li>
+                <li>
+                    <a href="users.html"><img src="../assets/icons/add-user.png">Funcionários</a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a onclick="limparSessao()"><img src="../assets/icons/log-out.png">Sair</a>
+                </li>
+            </ul>
+
+        </div>
+        
+            <div class="dash">
+
+                
+                
+                <div class="mainAnalise">
+                    <div id="area_botoes"></div>
+                    <div class="geral">
+                        <div class="fr1Analise">
+                            <select id="slcMaquinas" onchange="graficosMedia(this)">
+                                
+                            </select>
+                            <div class="processos">
+                                <h2>Média de uso de CPU</h2>
+                                <div class="divGrafico" id="divGraficoCpu">
+                                    <canvas class="cnvGrafico" id="graficoCpu"></canvas>
+                                </div>
+                            </div>
+                            <div class="processos">
+                                <h2>Média de uso de RAM</h2>
+                                <div class="divGrafico" id="divGraficoRam">
+                                    <canvas class="cnvGrafico" id="graficoRam"></canvas>
+                                </div>
+                            </div>
+                            <div class="processos">
+                                <h2>Média de uso de Disco</h2>
+                                <div class="divGrafico" id="divGraficoDisco">
+                                    <canvas class="cnvGrafico" id="graficoDisco"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="alertas">
+                        <h2>Alertas</h2>
+                    </div> -->
+                </div>
+            </div>
+        
+    </body>
+
+    </html>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/plotarGraficos.js"></script>
+    <script src="../js/funcoes.js"></script>
+    <script src="../js/sidebar.js"></script>
+    

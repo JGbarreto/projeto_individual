@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styleLogin.css">
+    <link rel="icon" type="image/x-icon" href="assets/LogoSimbolo.png">
+    <!-- <script src="./js/funcoes.js"></script> -->
+    <title>SAMP</title>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="header_logo">
+            <a href="index.html"> <img class="header_img" src="assets/Logo.png" alt="SAMP"> </a>
+        </div>
+        <div class="espaco"></div>
+        <div class="header_box">
+         
+        </div>
+        <div class="botoes">
+            <button class="header_botao"><a href="cadastro.html">CADASTRO</a></button>
+            <button class="header_botao"><a href="login.html">LOGIN</a></button> 
+        </div> 
+    </div>
+
+    <div class="linha"></div>
+    <span id="mensagem_erro" class="ms"></span>
+    <div class="container">
+        <div class="cont-dir">
+            <div class="container-cadastro">
+                <h1>LOGIN</h1>
+                <section id="form_empresa">
+                    <h3>Realize seu login:</h3>
+                    <div class="form">
+                        <label for="inp_email">E-mail:</label>
+                        <input id="inp_email">
+                        <label for="inp_senha">Senha:</label>
+                        <input id="inp_senha" type="password">
+                        <button onclick="entrar()">Entrar</button>
+                        <label>Ainda não cadastrou sua empresa?</label>
+                        <a id="tag_a_para_tela_cadastro" href="cadastro.html">Cadastrar</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="cont-esq">
+            <img class="login_left_img" src="assets/Cadastro_Login.png" alt="Cadastro">
+        </div>
+    </div>
+
+</body>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/funcoes.js"></script>
+
+</html>

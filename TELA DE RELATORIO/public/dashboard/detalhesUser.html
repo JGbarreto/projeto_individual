@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styleDash.css">
+    <link rel="icon" type="image/x-icon" href="assets/LogoSimbolo.png">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <title>SAMP</title>
+</head>
+
+<body onload="validarSessao(), buscarComponentesUser(sessionStorage.ID_USUARIO, sessionStorage.ID_MAQUINA)">
+
+    <div class="header_dash">
+        <nav class="nav_dash">
+            <!-- <img src="../assets/icons/burger-bar.png" class="icon-menu"> -->
+            <img src="../assets/logobranca.png">
+        </nav>
+
+    </div>
+
+    <div class="menu" id="sidebar">
+
+        <h2 id="nome_empresa">C6</h2>
+        <ul id="ul_maquinas">
+            <!--  <li class="item-selecionado">
+                <a><img src="../assets/icons/server.png">Servidor 01</a>
+            </li>
+            <li>
+                <a><img src="../assets/icons/server.png">Servidor 02</a>
+            </li>
+            <li>
+                <a><img src="../assets/icons/server.png">Servidor 03</a>
+            </li>
+            <li>
+                <a><img src="../assets/icons/server.png">Servidor 04</a>
+            </li>-->
+            <li>
+                <a href="analise.html"><img src="../assets/icons/bar-chart.png">Análise</a>
+            </li>
+            <li>
+                <a href="users.html"><img src="../assets/icons/add-user.png">Funcionários</a>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <a onclick="limparSessao()"><img src="../assets/icons/log-out.png">Sair</a>
+            </li>
+        </ul>
+
+    </div>
+
+    </div>
+
+    <div class="dash">
+
+
+
+        <div class="main">
+            <h2 id="nome_usuario">Usuário</h2>
+            <div class="container">
+
+
+                <div class="relatorio_user">
+                    <div class="fr1_relatorio">
+                        <div class="qtd_dados" id="qtd_dados">
+                            <canvas id="grafico_qtd_dados"></canvas>
+                        </div>
+                        <div class="valor_dados" id="valor_dados">
+                            <canvas id="grafico_valor_dados"></canvas>
+                        </div>
+                    </div>
+                    <div class="fr2_relatorio">
+                        <div class="dados_gerais" id="dados_gerais">
+                            
+                        </div>
+                        <div class="participacao" id="participacao">
+                            <canvas id="grafico_participacao"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/plotarGraficos.js"></script>
+<script src="../js/funcoes.js"></script>
+<script src="../js/sidebar.js"></script>
+<script>
+    
+</script>

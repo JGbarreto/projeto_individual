@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styleCadastro.css" />
+    <link rel="icon" type="image/x-icon" href="assets/LogoSimbolo.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter"
+      rel="stylesheet"
+    />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>SAMP</title>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="header_logo">
+        <a href="index.html">
+          <img class="header_img" src="assets/Logo.png" alt="SAMP" />
+        </a>
+      </div>
+      <div class="espaco"></div>
+      <div class="header_box"></div>
+      <div class="botoes">
+        <button class="header_botao">
+          <a href="cadastro.html">CADASTRO</a>
+        </button>
+        <button class="header_botao"><a href="login.html">LOGIN</a></button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="cont-esq">
+        <img src="assets/VetorDownload.png" />
+      </div>
+      <div class="cont-dir">
+        <div class="container-cadastro">
+          <h1>CADASTRE-SE</h1>
+          <section id="form_empresa">
+            <h3>Cadastro da Empresa:</h3>
+            <div class="form">
+              <label for="inp_nome_empresa">Nome da Empresa:</label>
+              <input id="inp_nome_empresa" />
+              <label for="inp_cnpj_empresa">CNPJ:</label>
+              <input id="inp_cnpj_empresa" />
+              <label for="inp_email_empresa">E-mail:</label>
+              <input id="inp_email_empresa" />
+            </div>
+            <button onclick="navegar()">Avançar</button>
+          </section>
+          <section id="form_usuario">
+            <h3>Cadastro do Usuário:</h3>
+            <div class="form">
+              <label for="inp_nome_usuario">Nome do Usuário:</label>
+              <input id="inp_nome_usuario" />
+              <label for="inp_email_usuario">E-mail:</label>
+              <input id="inp_email_usuario" />
+              <div class="campo-coluna">
+                <div class="campo-senha">
+                  <label>Senha:</label>
+                  <input id="inp_senha_usuario" type="password" />
+                </div>
+                <div class="campo-senha">
+                  <label>Confirme a senha:</label>
+                  <input id="inp_conf_senha_usuario" type="password" />
+                </div>
+              </div>
+            </div>
+            <div class="campo-coluna">
+              <div class="campo-senha">
+                <button onclick="navegar()">Voltar</button>
+              </div>
+              <div class="campo-senha">
+                <div id="loading"><img src="assets/loading_verde.gif"></div>
+                <button id="botaoVisibility" onclick="cadastrar()">Cadastrar</button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script src="js/formCadastro.js"></script>
+
+<script>
+  loading.style.display = 'none';
+  function cadastrar() {
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    // var cargo = cargo_cad_input.value;
+    // var fkEmpresa = fkEmpresa_cad_input.value;
+    // usuario ^^^
+    // Empresa VVV
+
+    /*
+        var nome = "Filipe";
+        var email = "Filipe@email.com";
+        var senha = 1234;
+        var confirmacaoSenha = 1234;
+        var fkEmpresa = 1;
+        // usuario ^^^
+        // Empresa VVV
+        var nomeEmpresa = "Itau";
+        var emailEmpresa = "Itau@itaudominio.com";
+        var cnpj = "11111111111111";
+        */
+    botaoVisibility.style.display="none";
+    loading.style.display="flex";
+    var nomeEmpresa = inp_nome_empresa.value;
+    var emailEmpresa = inp_email_empresa.value;
+    var cnpj = inp_cnpj_empresa.value;
+
+    var nomeUsuario = inp_nome_usuario.value;
+    var emailUsuario = inp_email_usuario.value;
+    var senhaUsuario = inp_senha_usuario.value;
+    var confirmacaoSenha = inp_conf_senha_usuario.value;
+
+    if (nomeEmpresa == "" && emailEmpresa == "" && cnpj == "") {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "Preencha o cadastro da empresa",
+      });
+      return false
+      botaoVisibility.style.display="block";
+      loading.style.display="none";
+    }else if (nomeEmpresa == "") {
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "Informe o nome da empresa",
+      });
+      return false
+      botaoVisibility.style.display="block";
+      loading.style.display="none";
+    }else if(cnpj == ""){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "Informe o CNPJ",
+      });
+      botaoVisibility.style.display="block";
+      loading.style.display="none";
+
+    } else if (emailEmpresa == "") {
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "Preencha o email da empresa",
+      });
+      return false
+      botaoVisibility.style.display="block";
+      loading.style.display="none";
+    }else if(nomeUsuario == "" && emailUsuario == "" && senhaUsuario ==  "" && confirmacaoSenha == ""){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "Preencha o cadastro do usuário",
+      });
+      return false
+      botaoVisibility.style.display="block";
+      loading.style.display="none";
+    }else if(nomeUsuario == ""){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "Informe o nome de usuário",
+      });
+      botaoVisibility.style.display="block";
+      loading.style.display="none";
+    }else if(emailUsuario == ""){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "Informe o email do usuário",
+      });
+      botaoVisibility.style.display="block";
+      loading.style.display="none";
+    }else if(senhaUsuario == ""){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "Informe a senha do usuário",
+      });
+      botaoVisibility.style.display="block";
+      loading.style.display="none";
+    }else if(confirmacaoSenha == ""){
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "Confirme a senha",
+      });
+      botaoVisibility.style.display="block";
+      loading.style.display="none";
+    }else if (confirmacaoSenha != senhaUsuario) {
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000,
+        
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      Toast.fire({
+        icon: "error",
+        title: "As senhas não coincidem",
+      });
+      botaoVisibility.style.display="block";
+      loading.style.display="none";
+    }else{
+
+        var validacaoEmailEmpresa = true;
+        var validacaoEmailUsuario = true;
+        
+        fetch(`/usuarios/validarEmailEmpresa/${emailEmpresa}`, {cache: 'no-store'}).then(function (resposta){
+            if(resposta.ok){
+                if(resposta.status == 200){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        
+                        didOpen: (toast) => {
+                          toast.addEventListener("mouseenter", Swal.stopTimer);
+                          toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                
+                    Toast.fire({
+                        icon: "error",
+                        title: "Email da empresa já está cadastrado!",
+                    });
+
+                    validacaoEmailEmpresa = false;
+                    botaoVisibility.style.display="block";
+                    loading.style.display="none";
+                }
+            }
+        });
+
+        fetch(`/usuarios/validarEmailUsuario/${emailUsuario}`, {cache: 'no-store'}).then(function (resposta){
+            if(resposta.ok){
+                if(resposta.status == 200){
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        
+                        didOpen: (toast) => {
+                          toast.addEventListener("mouseenter", Swal.stopTimer);
+                          toast.addEventListener("mouseleave", Swal.resumeTimer);
+                        },
+                    });
+                
+                    Toast.fire({
+                        icon: "error",
+                        title: "Email do usuário já está cadastrado!",
+                    });
+
+                    validacaoEmailUsuario = false;
+                }
+            }
+        }).then(function (){
+            if(validacaoEmailEmpresa && validacaoEmailUsuario){
+                
+                // Enviando o valor da nova input
+                fetch("/usuarios/cadastrarEmpresa", {
+                    method: "POST",
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                    nomeEmpresaServer: nomeEmpresa,
+                    emailEmpresaServer: emailEmpresa,
+                    cnpjServer: cnpj,
+                    }),
+                }).then(function (resposta) {
+                    console.log("resposta: ", resposta);
+    
+                    if (resposta.ok) {
+                        fetch("/usuarios/selecionarUltimaEmpresa").then(function (resposta) {
+                            resposta.json().then(function (json) {
+                                console.log(json);
+                                console.log(JSON.stringify(json));
+    
+                                fkEmpresa = json[0].idEmpresa;
+    
+                                console.log("FOI: " + fkEmpresa);
+    
+                                fetch("/usuarios/cadastrar", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({
+                                        nomeServer: nomeUsuario,
+                                        emailServer: emailUsuario,
+                                        senhaServer: senhaUsuario,
+                                        fkEmpresaServer: fkEmpresa,
+                                    }),
+                                }).then(function (resposta) {
+                                    if (resposta.ok) {
+                                        window.location = "login.html";
+                                    }
+                                });
+                            });
+                        });
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                }).catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+            }
+        })
+
+        
+                    
+    }
+
+    
+
+    return false;
+  }
+</script>

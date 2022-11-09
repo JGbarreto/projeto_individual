@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/styleDash.css">
+        <link rel="icon" type="image/x-icon" href="assets/LogoSimbolo.png">
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+        <title>SAMP</title>
+    </head>
+
+    <body onload="validarSessao(), gerar(1,1)">
+
+        <div class="header_dash">
+            <nav class="nav_dash">
+                <!-- <img src="../assets/icons/burger-bar.png" class="icon-menu"> -->
+                <img src="../assets/Logo.png">
+            </nav>
+            
+        </div>
+
+        <div class="menu">
+
+            <ul>
+                <li>
+                    <a><img src="../assets/icons/burger-bar.png"></a>
+                </li>
+                <hr>
+            </ul>
+            <h2 id="nome_empresa">C6</h2>
+            <ul class="ul-maquinas">
+                <li class="item-selecionado">
+                    <a><img src="../assets/icons/server.png">Servidor 01</a>
+                </li>
+                <li>
+                    <a><img src="../assets/icons/server.png">Servidor 02</a>
+                </li>
+                <li>
+                    <a><img src="../assets/icons/server.png">Servidor 03</a>
+                </li>
+                <li>
+                    <a><img src="../assets/icons/server.png">Servidor 04</a>
+                </li>
+                <li>
+                    <a><img src="../assets/icons/bar-chart.png">Análise</a>
+                </li>
+                <li>
+                    <a><img src="../assets/icons/add-user.png">Funcionários</a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a onclick="limparSessao()"><img src="../assets/icons/log-out.png">Sair</a>
+                </li>
+            </ul>
+
+        </div>
+        
+            <div class="dash">
+
+                
+                
+                <div class="main">
+                    <div id="area_botoes"></div>
+                    <div class="geral">
+                        <div class="fr1">
+                            <div class="processos">
+                                <h2>Processos</h2>
+                            </div>
+                            <div class="info_maquina">
+                                <h2>Informações da Máquina</h2>
+                            </div>
+                        </div>
+                        <div class="fr2">
+                            <div class="cpu_ram">
+                                <div class="uso_cpu" id="div_cpu">
+                                    <h3>Uso da CPU</h3>
+                                    <div class="divGrafico">
+                                        <canvas class="cnvGrafico" id="graficoCpu"></canvas>
+                                    </div>
+                                </div>
+                                <div class="uso_ram" id="div_ram">
+                                    <h3>Uso da RAM</h3>
+                                    <div class="divGrafico">
+                                        <canvas class="cnvGrafico" id="graficoRam"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="disco_rede">
+                                <div class="uso_rede">
+                                    <h3>Uso da Rede</h3>
+                                </div>
+                                <div class="disco" id="div_disco">
+                                    <h3>Uso do Disco</h3>
+                                    <div class="divGrafico" id="divGraficoDisco">
+                                        <canvas class="cnvGrafico" id="graficoDisco"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="alertas">
+                        <h2>Alertas</h2>
+                    </div>
+                </div>
+            </div>
+        
+    </body>
+
+    </html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/plotarGraficos.js"></script>

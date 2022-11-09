@@ -1,0 +1,235 @@
+    /* FONTES */
+/* @font-face {
+    font-family: OswaldRegular;
+    src: url(../Site/fonts/Oswald-Regular.ttf);
+} */
+
+/* @font-face {
+    font-family: NunitoRegular;
+    src: url(../Site/fonts/Nunito-Regular.ttf);
+} */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Jockey+One&display=swap');
+/* FONTES */
+/* ====================================================== */
+/* BODY */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 0.6vw;         
+  }
+  
+body::-webkit-scrollbar-track {
+  background-color: #4d9e4194;   
+}
+  
+body::-webkit-scrollbar-thumb {
+    background-color: #4d9e419f;         
+
+}
+/* BODY */
+/* ====================================================== */
+/* HEADER */
+.header {
+    height: 9vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e9e9e9;
+    position: sticky;
+    border-bottom: 4px solid #4D9E41;
+}
+
+.header_logo {
+    height: 100%;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_img {
+    height: 30%;
+    width: 45%;
+}
+
+.header_box {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header_texto:hover {
+    color: #4D9E41;
+}
+
+.header_texto {
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 90%;
+    font-weight: 700;
+}
+.botoes{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.header_botao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    width: 9vw;
+    font-family: 'Inter', sans-serif;
+    font-size: 90%;
+    color: white;
+    font-weight: 700;
+    background-color: #4D9E41;
+    border: 2px solid #4D9E41;
+    border-radius: 10px;
+}
+/* HEADER */
+/* ====================================================== */
+/* Seção Cadastro */
+
+.container{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+}
+
+.cont-esq{
+    display: flex;
+    width: 55%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cont-dir{
+    background-color: #4D9E41;
+    display: flex;
+    width: 45%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 112px;
+    border-bottom-left-radius: 112px;
+}
+
+.container-cadastro{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    width: 80%;
+    height: 80%;
+}
+
+.cont-dir h1{
+    font-family: 'Jockey One';
+    font-weight: 400;
+    font-size: 52px;
+    color: #1E1E1E;
+    text-decoration: underline;
+    text-align: center;
+    margin-top: 0;
+}
+
+.cont-dir h3{
+    font-family: 'Inter';
+    font-weight: 700;
+    font-size: 24px;
+    color: #313131;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.form label{
+    font-family: 'Inter';
+    font-weight: 700;
+    font-size: 20px;
+    color: #313131;
+    margin-top: 20px;
+}
+
+.form input{
+    background-color: #FFFFFF;
+    border: 3px solid #1E1E1E;
+    border-radius: 30px;
+    height: 28px;
+    margin-top: 10px;
+}
+
+.container-cadastro button{
+    width: 100%;
+    height: 35px;
+    border-radius: 8px;
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+    border-style: none;
+    font-family: 'Inter';
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.campo-coluna{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.campo-senha{
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+#form_usuario{
+    display: none;
+}
+#form_empresa {
+    display: flex;
+    flex-direction: column;
+}
+/* E DETALHE : */
+#loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#loading img{
+    width: 50%;
+}
+/* Fim Seção Cadastro
+/* ====================================================== */

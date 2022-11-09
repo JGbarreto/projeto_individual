@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styleDash.css">
+    <link rel="icon" type="image/x-icon" href="assets/LogoSimbolo.png">
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <title>SAMP</title>
+</head>
+
+<body onload="validarSessao()">
+
+    <div class="header_dash">
+        <nav class="nav_dash">
+            <!-- <img src="../assets/icons/burger-bar.png" class="icon-menu"> -->
+            <img src="../assets/logobranca.png">
+        </nav>
+
+    </div>
+
+    <div class="menu" id="sidebar">
+
+        <h2 id="nome_empresa">C6</h2>
+        <ul id="ul_maquinas">
+            <!--  <li class="item-selecionado">
+                <a><img src="../assets/icons/server.png">Servidor 01</a>
+            </li>
+            <li>
+                <a><img src="../assets/icons/server.png">Servidor 02</a>
+            </li>
+            <li>
+                <a><img src="../assets/icons/server.png">Servidor 03</a>
+            </li>
+            <li>
+                <a><img src="../assets/icons/server.png">Servidor 04</a>
+            </li>-->
+            <li>
+                <a href="analise.html"><img src="../assets/icons/bar-chart.png">Análise</a>
+            </li>
+            <li>
+                <a href="users.html"><img src="../assets/icons/add-user.png">Funcionários</a>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <a onclick="limparSessao()"><img src="../assets/icons/log-out.png">Sair</a>
+            </li>
+        </ul>
+
+    </div>
+
+    </div>
+
+    <div class="dash">
+
+
+
+        <div class="main">
+            <h2>Adicionar Usuário</h2>
+            <div class="container">
+                <div class="formulario">
+                    Nome:
+                    <input type="text" id="nome_input">
+                    E-mail:
+                    <input type="text" id="email_input">
+                    Cargo:
+                    <select name="" id="slct_cargo">
+                        <option value="Gestor">Gestor</option>
+                        <option value="Técnico">Técnico</option>
+                        <option value="Analista">Analista</option>
+                    </select>
+                    Senha:
+                    <input type="password" id="senha_input">
+                    Repita a senha:
+                    <input type="password" id="confirmacao_senha_input">
+                    <button onclick="cadastrarUser()">Cadastrar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/plotarGraficos.js"></script>
+<script src="../js/funcoes.js"></script>
+<script src="../js/sidebar.js"></script>
+<script>
+    function cadastrarUser() {
+
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var idEmpresa = sessionStorage.ID_EMPRESA;
+        console.log(idEmpresa + 'to aq')
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var cargoVar = slct_cargo.value;
+        var senhaVar = senha_input.value;
+        var confirmacaoSenhaVar = confirmacao_senha_input.value;
+
+        if (nomeVar == "" || emailVar == "" || senhaVar == "" || confirmacaoSenhaVar == "") {
+            cardErro.style.display = "block"
+            alert('Preencha todos os campos')
+
+
+            return false;
+        }
+        else {
+            fetch("/usuarios/cadastrarUsuario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    idEmpresaServer: idEmpresa,
+                    nomeServer: nomeVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                    cargoServer: cargoVar
+
+                })
+            }).then(function (resposta) {
+
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+
+                    alert('Usuário cadastrado com sucesso')
+
+                    setTimeout(() => {
+
+                    }, "2000")
+
+                    limparFormulario();
+
+                } else {
+                    throw ("Houve um erro ao tentar realizar o cadastro!");
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+
+            });
+        }
+
+        // Enviando o valor da nova input
+
+
+        return false;
+    }
+
+
+</script>

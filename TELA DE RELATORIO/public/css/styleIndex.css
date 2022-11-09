@@ -1,0 +1,747 @@
+/* FONTES */
+/* @font-face {
+    font-family: OswaldRegular;
+    src: url(../Site/fonts/Oswald-Regular.ttf);
+} */
+
+/* @font-face {
+    font-family: NunitoRegular;
+    src: url(../Site/fonts/Nunito-Regular.ttf);
+} */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Jockey+One&display=swap');
+/* FONTES */
+/* ====================================================== */
+/* BODY */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e9e9e9;
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    width: 1vw;               
+  }
+  
+body::-webkit-scrollbar-track {
+  background-color: #4d9e4194;   
+}
+  
+body::-webkit-scrollbar-thumb {
+    background-color: #4d9e419f;         
+
+}
+/* BODY */
+/* ====================================================== */
+/* HEADER */
+.header {
+    height: 9vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e9e9e9;
+    position: sticky;
+    border-bottom: 4px solid #4D9E41;
+    position: fixed;
+}
+
+.header_logo {
+    height: 100%;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_img {
+    height: 30%;
+    width: 45%;
+}
+
+.header_box {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header_texto:hover {
+    color: #4D9E41;
+}
+
+.header_texto {
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 90%;
+    font-weight: 700;
+}
+.botoes{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.header_botao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60%;
+    width: 9vw;
+    font-family: 'Inter', sans-serif;
+    font-size: 90%;
+    color: white;
+    font-weight: 700;
+    background-color: #4D9E41;
+    border: 2px solid #4D9E41;
+    border-radius: 10px;
+}
+/* HEADER */
+/* ====================================================== */
+/* ====================================================== */
+/* BANNER */
+.banner {
+    width: 100%;
+    height: 700px;
+    background-image: url(../assets/01\ 1.png);
+    background-size: 100%  100%;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.barra_horizontal{
+    background-color: #4D9E41;
+    width: 100%;
+    height: 10%;
+    border-radius: 40px 40px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 9vh;
+    font-family: 'Jockey One', sans-serif;
+    font-weight: 400;
+    color: white;
+}   
+/* BANNER */
+/* ====================================================== */
+/* DEGRADE2 */
+
+/* SOBRE NÓS */
+.solucao {
+    background-color: #1E1E1E;
+    height: 879px;
+    width: 100%;
+    left: 0px;
+    top: 697px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.box_border{
+    border:3px solid #4CFA91;
+    border-radius: 3px;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.solucao_titulo {
+    color: #4D9E41;
+    height: 5vh;
+    display: flex;
+    font-family: 'Jockey One', sans-serif;
+    font-size: 6vh;
+    margin-top: 1vh;
+    margin-bottom: 7vh;
+    border-bottom: #4D9E41 3px solid;
+    padding: 25px;
+}
+.solucao_frase{
+    width: 1000px;
+    height: 68px;
+    left: 99px;
+    top: 929px;
+
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 34px;
+    text-align: center;
+    margin-bottom: 7vh;
+
+    color: #e9e9e9;
+}
+
+.solucao_boxes {
+    color: #e9e9e9;
+    height: 65vh;
+    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    border-color: #4D9E41;
+}
+
+.solucao_box1 {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: solid 4px #4CFA91;
+    border-radius: 46px;
+}
+.solucao_box2 {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: solid 4px #4CFA91;
+    border-radius: 46px;
+}
+.solucao_box3 {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: solid 4px #4CFA91;
+    border-radius: 46px;
+}
+
+.solucao_img {
+    height: 126px;
+    width: 126px;
+}
+
+.solucao_texto {
+    width: 239px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    /* font-weight: 700; */
+    margin-top: 1vh;
+}
+.solucao_texto_titulo{
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+/* SOBRE NÓS */
+/* ====================================================== */
+/* CONTATO */
+.contato {
+    height: 120vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    background: #e9e9e9;
+}
+
+.contato_left {
+    height: 80vh;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    background-color: #4D9E41;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    font-family: 'Inter', sans-serif;
+}
+
+.contato_left_titulo {
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 4vh;
+    font-weight: 600;   
+    margin-left: 5vw;
+}
+
+.contato_left_conteudo {
+    font-family: 'Inter', sans-serif;
+    height: 15vh;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    margin-left: 7vw;
+}
+
+.contato_left_img {
+    height: 6vh;
+}
+
+.contato_left_texto {
+    font-family: 'Inter', sans-serif;
+    font-size: 3vh;
+    font-weight: 700;  
+    margin-left: 1vw;
+}
+
+.contato_right {
+    height: 70vh;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10vw;
+}
+
+.contato_right_texto {
+    height: 5vh;
+    font-family: 'Inter', sans-serif;
+    font-size: 3vh;
+    font-weight: 700;  
+}
+
+.contato_right_input1 {
+    height: 5vh;
+    width: 40vw;
+    font-family: 'Inter', sans-serif;
+    font-size: 3vh;
+    border-radius: 2vh;
+    border: 2px solid #313131;
+    background-color:#e9e9e9 ;
+}
+
+.contato_right_input2 {
+    height: 35vh;
+    width: 40vw;
+    font-family: 'Inter', sans-serif;
+    font-size: 3vh;
+    border-radius: 2vh;
+    border: 2px solid #313131;
+    background-color:#e9e9e9 ;
+    resize: none;
+}
+
+.contato_right_botao {
+    height: 5vh;
+    width: 10vw;
+    font-family: 'Inter', sans-serif;
+    font-size: 2vh;
+    font-weight: 700; 
+    background-color: #4D9E41;
+    border-radius: 2vh;
+    border: 0;
+    margin-left: 16vw;
+    margin-top: 3vh;
+}
+/* CONTATO */
+/* ====================================================== */
+/* PARCEIROS */
+.parceiros {
+    background-color: #e9e9e9;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 100px;
+}
+
+.parceiros_titulo {
+    color: #4D9E41;
+    height: 5vh;
+    display: flex;
+    font-family: 'Jockey One', sans-serif;
+    font-size: 6vh;
+    margin-top: 1vh;
+    margin-bottom: 10vh;
+    border-bottom: #4D9E41 3px solid;
+    padding: 25px;
+}
+
+.parceiros_box {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-content: space-between;
+}
+.c6_linha{
+    width: 20.2vh;
+    height: 2.14vh;
+    left: 24.25vh;
+    top: 347.35;
+    background-color: #242424;
+    margin-top: 2vh;
+}
+.nubank_linha{
+    width: 20.2vh;
+    height: 2.14vh;
+    left: 24.25vh;
+    top: 347.35;
+    background-color: #820AD1;
+    margin-top: 2vh;
+}
+.santander_linha{
+    width: 20.2vh;
+    height: 2.14vh;
+    left: 24.25vh;
+    top: 347.35;
+    background-color: #E00000;
+    margin-top: 2vh;
+}
+.itau_linha{
+    width: 20.2vh;
+    height: 2.14vh;
+    left: 24.25vh;
+    top: 347.35;
+    background-color: #EC7000;
+    margin-top: 2vh;
+}
+
+.bb_linha{
+    width: 20.2vh;
+    height: 2.14vh;
+    left: 24.25vh;
+    top: 347.35;
+    background-color: #FCFC30;
+    margin-top: 2vh;
+}
+
+
+.parceiros_boxes {
+    height: 20vh;
+}
+
+.parceiros_img {
+    height: 20vh;
+}
+/* PARCEIROS */
+/* ====================================================== */
+/* PLANOS */
+.planos {
+    display: flex;
+    background-color: #1E1E1E;
+    height: 90vh;
+    width: 100%;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    color:#e9e9e9;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 100px;
+}
+
+.planos_titulo_principal{
+    color: #4D9E41;
+    height: 5vh;
+    display: flex;
+    font-family: 'Jockey One', sans-serif;
+    font-size: 6vh;
+    margin-top: 1vh;
+    margin-bottom: 10vh;
+    border-bottom: #4D9E41 3px solid;
+    padding: 25px;
+}
+
+.plano_box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #1E1E1E;
+    border-radius: 10px;
+    margin: 10px;
+}
+.planos_boxes {
+    height: 50vh;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 4px solid #4CFA91;
+    border-radius: 46px;
+    margin-left: 10vh;
+    margin-right: 10vh;
+    /* margin-top: 10vh; */
+    /* margin-bottom: 10vh; */
+    padding-bottom: 60px;
+}
+.planos_titulo {
+    display: flex;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    width: 30px;
+    font-size: 6vh;
+    margin-top: 5vh;
+}
+
+.planos_preco {
+    display: flex;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 3vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.planos_img {
+    height: 3vh;
+    margin-right: 1vw;
+}
+
+.planos_texto {
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 3vh; 
+    margin-top: 1vh; 
+}
+
+.planos_botao {
+    height: 5vh;
+    width: 116px;
+    padding-top: 9px;
+    padding-bottom: 11px;
+    font-family: 'Inter', sans-serif;
+    font-size: 2vh;
+    font-weight: 600; 
+    background-color: #4CFA91;
+    border: 1px solid #000000;
+    border-radius: 1vh;
+    margin-top: 13vh;
+}
+/* PLANOS */
+/* ====================================================== */
+/* ONDA */
+
+/* ONDA */
+/* ====================================================== */
+/* FOOTER */
+.footer {
+    border-top: solid 3px #313131;
+    height: 60vh;
+    justify-content: center;
+    background-color: #4D9E41;
+    display: flex;
+    flex-direction: row;
+}
+.pai_footer{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.titulo_endereco {
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+.titulo_endereco span {
+    margin-top: 50px;
+    font-family: 'Inter', sans-serif;
+    font-size: 3vh;
+    font-weight: 700; 
+}
+.conteudo_footer{
+    /* margin-top:120px; */
+    font-family: 'Inter', sans-serif;
+    font-size: 3vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.local_footer {
+    height: 30px;
+    width: 30px;
+}
+
+.conteudo_footer_esquerda{
+    display: flex;
+    width: 50%;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center
+}
+
+.conteudo_footer_direita{
+    display: flex;
+    width: 50%;
+    flex-direction: row;
+}
+
+.conteudo_footer_direita iframe{
+    border: 5px solid #1E1E1E;
+    border-radius: 20px;
+}
+
+/* FOOTER */
+
+/* Media Responsividade - EM CONSTRUÇÃO */
+
+/* Celulares Antigos */
+@media (max-width: 480px){
+    
+    .header{
+        justify-content: space-around;
+    }
+
+    .header_box{
+        display: none;
+    }
+
+    .header_botao{
+        width: 36vw;
+    }
+
+    .header_img{
+        height: auto;
+        width: 100%;
+    }
+
+    .header_logo a{
+        display: flex;
+        align-items: center;
+    }
+
+    .header_botao{
+        width: 45%;
+        font-size: 8px;
+        height: 45%;
+    }
+
+    .botoes{
+        width: 40%;
+        justify-content: space-around;
+    }
+    
+    .banner{
+        width: 100%;
+        height: 265px;
+    }
+
+    .barra_horizontal{
+        font-size: 3vh;
+    }
+
+    /* Area Solucao */
+
+    .solucao{
+        height: 650px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+
+    .solucao_titulo{
+        margin-top: 0.1vh;
+        font-size: 3vh;
+        border-bottom: #4D9E41 2px solid;
+        padding: 5px;
+    }
+
+    .solucao_frase{
+        font-size: 9px;
+        width: 100%;
+        height: auto;
+        line-height: 12px;
+    }
+
+    .solucao_boxes{
+        height: 650px;
+        width: 100vw;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .solucao_img{
+        height: 48px;
+        width: 48px;
+    }
+
+    .solucao_box1{
+        border-radius: 20px;
+        width: 90%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .solucao_box2{
+        border-radius: 20px;
+        width: 90%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .solucao_box3{
+        border-radius: 20px;
+        width: 90%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .solucao_texto_titulo{
+        font-size: 12px;
+    }
+
+    .solucao_texto{
+        font-size: 10px;
+        width: 100%;
+    }
+
+    /* Area Parceiros */
+
+    .parceiros_titulo{
+        margin-top: 0.1vh;
+        font-size: 3vh;
+        border-bottom: #4D9E41 2px solid;
+        padding: 5px;
+    }
+
+    .parceiros_box{
+        flex-direction: column;
+    }
+
+    .parceiros_boxes{
+        height: 10vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+}
+
+
+/* Celulares Modernos */
+/*
+@media (max-width: 768px){
+
+}
+*/
+
+/* Notebooks e Computadores */
+/*
+@media (min-width: 768px){
+
+}
+*/

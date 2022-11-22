@@ -27,6 +27,10 @@ router.get("/ultimosRegistros/:idEmpresa/:idMaquina/:fkComponente", function (re
     medidaController.buscarUltimosRegistros(req, res);
 });
 
+router.get("/qtdRegistrosPorUser/:idUsuario/:idMaquina/", function (req, res){
+    medidaController.qtdRegistrosPorUser(req, res);
+});
+
 router.get("/ultimosRegistrosUser/:idUsuario/:idMaquina/:fkComponente", function (req, res){
     medidaController.buscarUltimosRegistrosUser(req, res);
 });

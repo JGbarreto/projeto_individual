@@ -18,7 +18,7 @@ def insert(query):
     try: # o comando try serve para verificar se toos os comandos serão executados de maneira exata, caso o contrário, ele para no momento em que detectou um erro, indo para o except que informa o erro.
 
         cnx.reconnect()
-        cursor = cnx.cursor()
+        cursor = cnx.cursor(buffered=True)
         cursor.execute(query)
     except mysql.connector.Error as error:
         print("ERRO {}".format(error))
@@ -33,14 +33,15 @@ def select(query, isAllRequested = False):
     try:
         
         cnx.reconnect()
-        cursor = cnx.cursor()
+        cursor = cnx.cursor(buffered=True)
         cursor.execute(query)
+        
         if isAllRequested: # verificando se retornou do banco
             dados = cursor.fetchall() # retornando os dados do banco
             
         else:
             dados = cursor.fetchone()
-            
+        
     except mysql.connector.Error as error:
         print(f"Erro: {error}")
         dados = error
@@ -128,6 +129,3 @@ while entrou ==False:
         idMaquina = select(f"select idMaquina from maquina where serialMaquina = '{serial}'")
         print('Iniciando captura')
         insertPeriodico(idMaquina[0], serial)
-
-
-

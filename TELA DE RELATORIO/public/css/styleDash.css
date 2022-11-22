@@ -337,13 +337,14 @@ h1,h2,h3 {
 .container {
     width: 90%;
     height: 80%;
+    
 }
 
 .botoes_user {
     display: flex;
     justify-content: space-between;
 }
-.botoes_user button {
+.botoes_user button, #botao_analisar {
     border:none;
     height: 50px;
     width: 150px;
@@ -353,8 +354,11 @@ h1,h2,h3 {
     font-family: 'Poppins';
     font-weight: 700;
 }
+#botao_analisar {
+    width: 100%;
+}
 
-.botoes_user button:hover {
+.botoes_user button:hover, #botao_analisar:hover {
     cursor: pointer;
     background-color: #37702e94;
     transition: 0.2s;
@@ -368,6 +372,7 @@ h1,h2,h3 {
     
 }
 
+
 .box_user {
     padding-left: 2% ;
     margin-bottom: 2vh;
@@ -375,7 +380,27 @@ h1,h2,h3 {
     background-color: var(--preto-header);
     font-family: 'Poppins';
     font-weight: bolder;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+.box_user button{
+    border:none;
+    height: 90%;
+    width: 150px;
+    border-radius: 10px;
+    background-color: var(--verde-samp);
+    color: white;
+    font-family: 'Poppins';
+    font-weight: 700;
+}
+
+.box_user button:hover{
+    cursor: pointer;
+    background-color: #37702e94;
+    transition: 0.2s;
+}
+
 
 .fr1Analise select{
     height: 30px;
@@ -451,6 +476,18 @@ h1,h2,h3 {
     width: 95%;
     height: 45%;
     background-color: var(--preto-header);
+   display: flex;
+}
+.dados_gerais1, .dados_gerais2 {
+height: 100%;
+width: 100%;
+}
+
+.dados_gerais1 div, .dados_gerais2 div{
+    
+    height: 50%;
+    width: 100%;
+    
 }
 
 .participacao {

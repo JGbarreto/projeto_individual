@@ -58,7 +58,7 @@ function buscarComponentesMaquinaPorUser(idUsuario, idMaquina){
 
     if(process.env.AMBIENTE_PROCESSO == "producao") {
         //TALVEZ PRECISE ADAPTAR
-        query = `SELECT fkComponente FROM DadosServidor WHERE idMaquina = ${idMaquina} AND idEmpresa = ${idEmpresa} GROUP BY fkComponente;`;
+        query = `SELECT idComponente FROM componente join maquina on componente.fkMaquina = idMaquina join empresa on idEmpresa = maquina.fkEmpresa join usuario on idEmpresa = usuario.fkEmpresa where idMaquina = '${idMaquina}' and idUsuario = '${idUsuario}'`;
     }else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
         query = `SELECT idComponente FROM componente join maquina on componente.fkMaquina = idMaquina join empresa on idEmpresa = maquina.fkEmpresa join usuario on idEmpresa = usuario.fkEmpresa where idMaquina = '${idMaquina}' and idUsuario = '${idUsuario}'`;
     }else{
@@ -89,16 +89,35 @@ function buscarUltimosRegistros(idEmpresa, idMaquina, fkComponente, limite_linha
     return database.executar(query);
 }
 
+function qtdRegistrosPorUser(idUsuario, idMaquina) {
+
+    var query = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        // ADAPTAR SE PRECISAR
+        query = `select sum(numeroRegistros) as qtdDados, DATE_FORMAT(momento, '%d/%m/%Y') as dia from dados join componente on dados.fkComponente = idComponente join maquina on idMaquina = componente.fkMaquina join relatorio on idMaquina = relatorio.fkMaquina where idMaquina=${idMaquina} and relatorio.fkUsuario = ${idUsuario} and momento >=(select inicio from relatorio where relatorio.fkUsuario = ${idUsuario} order by inicio limit 1) and momento <= (select inicio from relatorio where relatorio.fkUsuario = ${idUsuario} order by final desc limit 1) group by DATE_FORMAT(momento, '%d/%m/%Y') order by momento;`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        query = `select sum(numeroRegistros) as qtdDados, DATE_FORMAT(momento, '%d/%m/%Y') as dia from dados join componente on dados.fkComponente = idComponente join maquina on idMaquina = componente.fkMaquina join relatorio on idMaquina = relatorio.fkMaquina where idMaquina=${idMaquina} and relatorio.fkUsuario = ${idUsuario} and momento >=(select inicio from relatorio where relatorio.fkUsuario = ${idUsuario} order by inicio limit 1) and momento <= (select inicio from relatorio where relatorio.fkUsuario = ${idUsuario} order by final desc limit 1) group by DATE_FORMAT(momento, '%d/%m/%Y') order by momento;`;
+
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + query);
+    return database.executar(query);
+}
+
 function buscarUltimosRegistrosUser(idUsuario, idMaquina, fkComponente, limite_linhas) {
 
     var query = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         // ADAPTAR SE PRECISAR
-        query = `SELECT TOP ${limite_linhas} * FROM DadosServidor 
-        WHERE idEmpresa = ${idEmpresa} AND idMaquina = ${idMaquina} AND fkComponente = ${fkComponente} ORDER BY idRegistro;`;
+        query = `select registro, DATE_FORMAT(momento,'%d/%m/%Y %H:%i:%s') as momento from dados join componente on dados.fkComponente = idComponente join maquina on idMaquina = componente.fkMaquina join relatorio on idMaquina = relatorio.fkMaquina where idComponente = ${fkComponente} and relatorio.fkUsuario = ${idUsuario} and momento >=(select inicio from relatorio where relatorio.fkUsuario = ${idUsuario} order by inicio limit 1) and momento <= (select inicio from relatorio where relatorio.fkUsuario = ${idUsuario} order by final desc limit 1) order by momento desc limit 50;
+        `;
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        query = `select registro, momento from dados join componente on dados.fkComponente = idComponente join maquina on idMaquina = componente.fkMaquina join relatorio on idMaquina = relatorio.fkMaquina where idComponente = ${fkComponente} and relatorio.fkUsuario = ${idUsuario} and momento >=(select inicio from relatorio where relatorio.fkUsuario = ${idUsuario} order by inicio limit 1) and momento <= (select inicio from relatorio where relatorio.fkUsuario = ${idUsuario} order by final desc limit 1) order by momento desc limit 50;
+        query = `select registro, DATE_FORMAT(momento,'%d/%m/%Y %H:%i:%s') as momento from dados join componente on dados.fkComponente = idComponente join maquina on idMaquina = componente.fkMaquina join relatorio on idMaquina = relatorio.fkMaquina where idComponente = ${fkComponente} and relatorio.fkUsuario = ${idUsuario} and momento >=(select inicio from relatorio where relatorio.fkUsuario = ${idUsuario} order by inicio limit 1) and momento <= (select inicio from relatorio where relatorio.fkUsuario = ${idUsuario} order by final desc limit 1) order by momento desc limit 50;
         `;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -236,7 +255,8 @@ module.exports = {
     buscarServidores,
     infoMaquina,
     buscarComponentesMaquinaPorUser,
-    buscarUltimosRegistrosUser
+    buscarUltimosRegistrosUser,
+    qtdRegistrosPorUser
     // buscarUltimasMedidas,
     // buscarMedidasEmTempoReal
 }

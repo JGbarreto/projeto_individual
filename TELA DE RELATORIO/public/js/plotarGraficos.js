@@ -535,36 +535,44 @@ function buscarInfoMaquina(idMaquina) {
 }
 
 function buscarComponentesUser(idUsuario, idMaquina) {
-    fetch(`/medidas/buscarComponentesMaquinaPorUser/${idUsuario}/${idMaquina}`, 
-    { cache: 'no-store' }).then(function (resposta) {
-        if (resposta.ok) {
-            
-            resposta.json().then(function (resposta) {
-                console.log(`Dados recebidos dos componentes: ${JSON.stringify(resposta)}`);
+    
+    
+    fetch(`/medidas/buscarComponentesMaquinaPorUser/${idUsuario}/${idMaquina}`,
+        { cache: 'no-store' }).then(function (resposta) {
+            if (resposta.ok) {
 
-               
-                var cpu = gerarGraficoUser(resposta[0].idComponente);
-                var ram = gerarGraficoUser(resposta[1].idComponente);
-                
-                console.log(cpu)
-                
-                // graficosMedia(idMaquina);
-                plotarGraficoUser(cpu, ram)
-            })
-        }
-    });
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos dos componentes: ${JSON.stringify(resposta)}`);
+
+
+                    gerarGraficoUser(idUsuario, resposta[0].idComponente, resposta[1].idComponente);
+                    gerarGraficoQtdPorUser(idUsuario, idMaquina);
+
+
+                    //plotarGraficoUser(cpu, ram)
+                    // graficosMedia(idMaquina);
+
+                })
+            }
+        });
+        
+    
 }
 
 function plotarGraficoUser(cpu, ram) {
     var cpuDados = [];
     var momento = [];
     var ramDados = [];
-    
+
     for (let i = 0; i < cpu.length; i++) {
         cpuDados.push(cpu[i].registro)
-        momento.push(cpu[i].momento)
+        momento.push((cpu[i].momento))
         ramDados.push(ram[i].registro)
     }
+
+    cpuDados = cpuDados.reverse()
+    momento = momento.reverse()
+    ramDados = ramDados.reverse()
 
 
     const data = {
@@ -607,25 +615,122 @@ function plotarGraficoUser(cpu, ram) {
     };
 
     const myChart = new Chart(
-        document.getElementById('grafico_qtd_dados'),
+        document.getElementById('grafico_valor_dados'),
         config
-      );
+    );
+    
 }
 
-function gerarGraficoUser(idComponente) {
-    fetch(`/medidas/ultimosRegistrosUser/${sessionStorage.ID_USUARIO}/${idMaquina}/${idComponente}`, {
-        cache: 'no-store'
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(function (retorno) {
-                console.log(`Dados recebidos: ${JSON.stringify(retorno)}`);
-                
-                return JSON.stringify(retorno)
-                
-            });
+function plotarGraficoQtdPorUser(retorno) {
+    var qtdDados = [];
+    var dia = [];
 
-        } else {
-            console.error('Nada foi encontrado!');
+    for (let i = 0; i < retorno.length; i++) {
+        qtdDados.push(retorno[i].qtdDados)
+        dia.push((retorno[i].dia))
+        
+    }
+
+   
+    const data = {
+        labels: dia,
+        datasets: [{
+            label: 'CPU',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: qtdDados,
+        }]
+    };
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            elements: {
+                arc: {
+                    borderWidth: 0
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white',
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            }
         }
-    });
+    };
+
+    const myChart = new Chart(
+        document.getElementById('grafico_qtd_dados'),
+        config
+    );
+}
+
+function gerarGraficoUser(idUsuario, idComponenteCPU, idComponenteRAM) {
+
+    var ram;
+    var cpu;
+    
+        fetch(`/medidas/ultimosRegistrosUser/${idUsuario}/${idMaquina}/${idComponenteCPU}`, {
+            cache: 'no-store'
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (retorno) {
+                    console.log(`Dados recebidos: ${JSON.stringify(retorno)}`);
+                    console.log(retorno)
+                    cpu = retorno
+                    fetch(`/medidas/ultimosRegistrosUser/${idUsuario}/${idMaquina}/${idComponenteRAM}`, {
+                        cache: 'no-store'
+                    }).then(function (resposta) {
+                        if (resposta.ok) {
+                            resposta.json().then(function (retorno) {
+                                console.log(`Dados recebidos: ${JSON.stringify(retorno)}`);
+                                console.log(retorno)
+                                ram = retorno
+                                setTimeout(plotarGraficoUser, 1, cpu, ram)
+                            });
+            
+                        } else {
+                            console.error('Nada foi encontrado!');
+                        }
+                    });
+                    
+                });
+                
+            } else {
+                console.error('Nada foi encontrado!');
+            }
+        });
+      
+          
+}
+
+function gerarGraficoQtdPorUser(idUsuario, idMaquina) {
+
+
+    
+        fetch(`/medidas/qtdRegistrosPorUser/${idUsuario}/${idMaquina}`, {
+            cache: 'no-store'
+        }).then(function (resposta) {
+            console.log('aaaaa' + resposta.ok)
+            if (resposta.ok) {
+                resposta.json().then(function (retorno) {
+                    console.log(`Dados recebidos: ${JSON.stringify(retorno)}`);
+                    console.log(retorno)
+                    plotarGraficoQtdPorUser(retorno)
+                    
+                    
+                });
+                
+            } else {
+                console.error('Nada foi encontrado!');
+            }
+        });
+        
+          
 }

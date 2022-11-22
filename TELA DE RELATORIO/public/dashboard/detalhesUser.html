@@ -11,7 +11,7 @@
     <title>SAMP</title>
 </head>
 
-<body onload="validarSessao(), buscarComponentesUser(sessionStorage.ID_USUARIO, sessionStorage.ID_MAQUINA)">
+<body onload="validarSessao(),buscarComponentesUser(sessionStorage.USUARIO_ANALISE, sessionStorage.ID_MAQUINA)">
 
     <div class="header_dash">
         <nav class="nav_dash">
@@ -61,8 +61,10 @@
         <div class="main">
             <h2 id="nome_usuario">Usuário</h2>
             <div class="container">
-
-
+                <h2>Máquina</h2>
+                <select name="maquina" id="slct_maquinas"
+                    onchange="sessionStorage.ID_MAQUINA=slct_maquinas.value" ></select>
+                <button onclick="window.location.reload()" id="botao_analisar">Analisar</button>
                 <div class="relatorio_user">
                     <div class="fr1_relatorio">
                         <div class="qtd_dados" id="qtd_dados">
@@ -74,7 +76,25 @@
                     </div>
                     <div class="fr2_relatorio">
                         <div class="dados_gerais" id="dados_gerais">
-                            
+                            <div class="dados_gerais1">
+                                <div>
+                                    <h2>Servidores monitorados: <h1>6</h1>
+                                    </h2>
+                                </div>
+                                <div>
+                                    <h2>Numero de alertas</h2>
+                                    <h1>2</h1>
+                                </div>
+                            </div>
+                            <div class="dados_gerais2">
+                                <div>
+                                    <h2>Tempo de atividade</h2>
+                                    <h2>5 dias, e 3 horas</h2>
+                                </div>
+                                <div>
+                                    
+                                </div>
+                            </div>
                         </div>
                         <div class="participacao" id="participacao">
                             <canvas id="grafico_participacao"></canvas>
@@ -94,4 +114,97 @@
 <script src="../js/sidebar.js"></script>
 <script>
     
+    fetch("/medidas/buscarServidores", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idEmpresa: idEmpresa
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+
+            resposta.json().then(json => {
+
+                console.log(JSON.stringify(json));
+                console.log(json);
+
+                for (var index = 0; index < json.length; index++) {
+
+                    idMaquina = json[index].idMaquina;
+                    serialMaquina = json[index].serialMaquina;
+                    nomeMaquina = json[index].nome;
+                    fkEmpresa = json[index].fkEmpresa;
+
+                    var idBotao = `maquina${idMaquina}`;
+
+                    var paginaAtual = window.location.href;
+
+                    var link = '';
+
+                    if (paginaAtual == "http://localhost:8080/dashboard/dashboard.html" || paginaAtual == "http://localhost:8080/dashboard/dashboard.html#") {
+                        link = '#';
+                    } else {
+                        link = 'dashboard.html';
+                    }
+
+                    slct_maquinas.innerHTML += `
+                            <option value='${idMaquina}'>${nomeMaquina}</option>
+                        `
+                }
+
+            })
+
+
+        }
+
+
+    })
+
+    var idEmpresa = sessionStorage.ID_EMPRESA;
+
+    fetch("/usuarios/buscarFuncionarios", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idEmpresa: idEmpresa
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+
+            resposta.json().then(json => {
+
+                console.log(JSON.stringify(json));
+                console.log(json);
+
+                for (var index = 0; index < json.length; index++) {
+
+                    idUsuario = json[index].idUsuario;
+                    nome = json[index].nome;
+                    email = json[index].email;
+                    cargo = json[index].cargo;
+
+                    if(idUsuario == sessionStorage.USUARIO_ANALISE) {
+                        nome_usuario.innerHTML =nome;
+                    }
+                }
+
+            })
+
+
+        }
+
+
+    })
+    function definirSessao() {
+        slct_maquinas.selectedIndex = sessionStorage.ID_MAQUINA - 1;
+        slct_user.selectedIndex = sessionStorage.USUARIO_ANALISE - 1; 
+         
+        }
+
+        setTimeout(definirSessao, 150)
+
 </script>

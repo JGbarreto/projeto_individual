@@ -74,6 +74,28 @@ function buscarUltimosRegistros(req, res){
 
 }
 
+function qtdRegistrosPorUser(req, res){
+
+    
+
+    var idUsuario = req.params.idUsuario;
+    var idMaquina = req.params.idMaquina;
+    
+
+    medidaModel.qtdRegistrosPorUser(idUsuario, idMaquina).then(function (resultado){
+        if(resultado.length > 0){
+            res.status(200).json(resultado);
+        }else{
+            res.status(204).send("Não foram encontrados registros!");
+        }
+    }).catch(function (erro){
+        console.log(erro);
+        console.log("Houve um erro ao tentar a quantidade de registros no controller! Erro: " + erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+
+}
+
 function buscarUltimosRegistrosUser(req, res){
 
     const limite_linhas = 50;
@@ -177,7 +199,8 @@ module.exports = {
     buscarServidores,
     infoMaquina,
     buscarComponentesMaquinaPorUser,
-    buscarUltimosRegistrosUser
+    buscarUltimosRegistrosUser,
+    qtdRegistrosPorUser
     
     // buscarUltimasMedidas,
     // buscarMedidasEmTempoReal

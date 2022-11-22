@@ -1,5 +1,16 @@
 var sidebar = document.getElementById("sidebar");
 
+if(sessionStorage.CARGO_USUARIO == "Técnico") {
+    analise_button.style.display = "none"
+    users_button.style.display = "none"
+} else if (sessionStorage.CARGO_USUARIO == "Gestor"){
+    analise_button.style.display = "none"
+    users_button.style.display = "flex"
+} else if(sessionStorage.CARGO_USUARIO == "Analista") {
+    analise_button.style.display = "flex"
+    users_button.style.display = "none"
+}
+
 function botaoMenu(){
     if(sidebar.style.display == "flex"){
         sidebar.style.display = "none";

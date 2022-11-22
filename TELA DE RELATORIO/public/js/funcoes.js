@@ -88,6 +88,8 @@ function entrar() {
                     sessionStorage.ID_EMPRESA = json.idEmpresa;
                     sessionStorage.NOME_EMPRESA = json.nomeEmpresa;
                     sessionStorage.CARGO_USUARIO = json.cargo;
+                    sessionStorage.USUARIO_ANALISE = null;
+                    sessionStorage.NOME_USUARIO_ANALISE = null;
     
                     
                     window.location = "dashboard/dashboard.html";

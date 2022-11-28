@@ -35,7 +35,24 @@ function buscarServidores(idEmpresa){
     console.log("Executando a instrução SQL: \n" + query);
     return database.executar(query);
 }
+function buscarMonitorados(idUsuario){
+    var query = ``;
 
+    if(process.env.AMBIENTE_PROCESSO == "producao") {
+        query = `select maquina.nome, count(relatorio.fkMaquina) from relatorio join maquina on idMaquina = fkMaquina where fkUsuario=${idUsuario} group by relatorio.fkMaquina;
+
+        `;
+    }else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento"){
+        query = `select maquina.nome, count(relatorio.fkMaquina) from relatorio join maquina on idMaquina = fkMaquina where fkUsuario=${idUsuario} group by relatorio.fkMaquina;
+
+        `;
+    }else{
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+    console.log("Executando a instrução SQL: \n" + query);
+    return database.executar(query);
+}
 
 function buscarComponentesMaquina(idEmpresa, idMaquina){
     var query = ``;
@@ -256,7 +273,9 @@ module.exports = {
     infoMaquina,
     buscarComponentesMaquinaPorUser,
     buscarUltimosRegistrosUser,
-    qtdRegistrosPorUser
+    qtdRegistrosPorUser,
+    buscarMonitorados
+    
     // buscarUltimasMedidas,
     // buscarMedidasEmTempoReal
 }

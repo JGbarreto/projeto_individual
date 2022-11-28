@@ -51,4 +51,10 @@ router.post("/buscarServidores", function (req, res) {
     medidaController.buscarServidores(req, res);
 })
 
+router.post("/buscarMonitorados", function (req, res) {
+    medidaController.buscarMonitorados(req, res);
+})
+
+
+
 module.exports = router;

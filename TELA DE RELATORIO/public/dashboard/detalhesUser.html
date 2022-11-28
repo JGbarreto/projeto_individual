@@ -77,27 +77,23 @@
                     <div class="fr2_relatorio">
                         <div class="dados_gerais" id="dados_gerais">
                             <div class="dados_gerais1">
+                               
                                 <div>
-                                    <h2>Servidores monitorados: <h1>6</h1>
-                                    </h2>
-                                </div>
-                                <div>
-                                    <h2>Numero de alertas</h2>
-                                    <h1>2</h1>
+                                    <h2>Chamados abertos</h2>
+                                    <h1 id="num_alertas">0</h1>
                                 </div>
                             </div>
                             <div class="dados_gerais2">
                                 <div>
-                                    <h2>Tempo de atividade</h2>
-                                    <h2>5 dias, e 3 horas</h2>
+                                    <h2>Total de dias ativos</h2>
+                                    <h1 id="tempoAtividade"></h1>
                                 </div>
-                                <div>
-                                    
-                                </div>
+                                
                             </div>
                         </div>
-                        <div class="participacao" id="participacao">
-                            <canvas id="grafico_participacao"></canvas>
+                        <div class="info_user" id="info_user">
+                            <h2>Servidores monitorados: <h1 id="qtd_monitorados">0</h1></h2>
+                            <div id="exibir_monitorados"></div>
                         </div>
                     </div>
 
@@ -112,9 +108,12 @@
 <script src="../js/plotarGraficos.js"></script>
 <script src="../js/funcoes.js"></script>
 <script src="../js/sidebar.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
 <script>
-    
-    fetch("/medidas/buscarServidores", {
+
+var idUsuario = sessionStorage.USUARIO_ANALISE
+var idMaquina = sessionStorage.ID_MAQUINA
+fetch("/medidas/buscarServidores", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -136,7 +135,11 @@
                     serialMaquina = json[index].serialMaquina;
                     nomeMaquina = json[index].nome;
                     fkEmpresa = json[index].fkEmpresa;
-
+                    if(sessionStorage.ID_MAQUINA == idMaquina){
+                        sessionStorage.SERIAL_MAQUINA = serialMaquina;
+                    }
+                    
+                    
                     var idBotao = `maquina${idMaquina}`;
 
                     var paginaAtual = window.location.href;
@@ -153,52 +156,88 @@
                             <option value='${idMaquina}'>${nomeMaquina}</option>
                         `
                 }
-
             })
-
-
         }
-
-
     })
+    
 
-    var idEmpresa = sessionStorage.ID_EMPRESA;
+const options = {
+  method: 'POST',
+  headers: {
+    'accept': 'application/json',
+    'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIwODY5MjUsImVtYWlsIjoiam9hby5jb25jZWljYW9Ac3B0ZWNoLnNjaG9vbCIsImFwcGxpY2F0aW9uIjozMDAyMDc0NzZ9fQ.SRZx-58-x8HKCSTanwLU7MzGVoenpQwrmFpDppWzJduSo8NDJKtAw65ECGCGWEOO_1SJ65LnacQmgQ0aEIunXA',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    query: '{cards(pipe_id: "302763672") {edges {node {done createdBy {id}fields {name value}}}}}'
+  })
+};
 
-    fetch("/usuarios/buscarFuncionarios", {
+fetch('https://api.pipefy.com/graphql', options)
+  .then(response => response.json())
+  .then(response => {
+    
+    var jArray = response.data.cards.edges
+    var contador = 0;
+    for (let i = 0; i < jArray.length; i++) {
+        for (let j = 0; j < jArray[i]['node']['fields'].length; j++) {
+            if(jArray[i]['node']['createdBy']['id'] == sessionStorage.ID_PIPEFY && jArray[i]['node']['fields'][j]['value'] == sessionStorage.SERIAL_MAQUINA && jArray[i]['node']['done'] == false) {
+            contador += 1;
+        }
+            
+        }
+        
+        
+    }
+    num_alertas.innerHTML = contador;
+    
+  })
+  .catch(err => console.error(err));
+
+    
+  
+    
+    fetch("/medidas/buscarMonitorados", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            idEmpresa: idEmpresa
+            idUsuario: idUsuario
         })
     }).then(function (resposta) {
         if (resposta.ok) {
 
             resposta.json().then(json => {
-
-                console.log(JSON.stringify(json));
-                console.log(json);
-
-                for (var index = 0; index < json.length; index++) {
-
-                    idUsuario = json[index].idUsuario;
-                    nome = json[index].nome;
-                    email = json[index].email;
-                    cargo = json[index].cargo;
-
-                    if(idUsuario == sessionStorage.USUARIO_ANALISE) {
-                        nome_usuario.innerHTML =nome;
-                    }
+                for (let i = 0; i < json.length; i++) {
+                    var nome = json[i].nome;
+                    exibir_monitorados.innerHTML += `<div class="box_maquina">${nome}<div>`
+                    
                 }
+                console.log(JSON.stringify(json));
+                qtd_monitorados.innerHTML = json.length
+                
 
+                
             })
-
-
         }
-
-
     })
+
+    function gerarPdf(){
+        var doc = new jsPDF()
+        doc.text('Hello World', 10, 10)
+        doc.text('Hello World', 10, 10)
+
+        var data = new Date();
+        var dia = String(data.getDate()).padStart(2, '0');
+        var mes = String(data.getMonth() + 1).padStart(2, '0');
+        var ano = data.getFullYear();
+        dataAtual = dia + '-' + mes + '-' + ano;
+        
+        doc.save(`RELATORIO${sessionStorage.NOME_USUARIO}${dataAtual}`)
+    }
+
+
     function definirSessao() {
         slct_maquinas.selectedIndex = sessionStorage.ID_MAQUINA - 1;
         slct_user.selectedIndex = sessionStorage.USUARIO_ANALISE - 1; 

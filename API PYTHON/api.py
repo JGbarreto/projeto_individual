@@ -7,7 +7,11 @@ from psutil import *
 import platform 
 from pynput import keyboard
 import cpuinfo
+import requests
+from json import loads
 
+serial = ''
+chamados = 0
 sistema = platform.system()
 cnx = mysql.connector.connect(user="root",
                               password="pjTw&XK^tmkA", 
@@ -59,14 +63,13 @@ def insertPeriodico(idMaquina, serialMaquina):
     metricaRam = select(f'select capturaMin, capturaMax from metrica join componente on idMetrica = fkMetrica where fkMaquina = {idMaquina} and nomeComponente like "RAM%"')
     idUsuario = select(f'select idUsuario from usuario join empresa on idEmpresa = usuario.fkEmpresa join maquina on idEmpresa = maquina.fkEmpresa where idMaquina = {idMaquina};')
     numeroRegistros = 0
-    chamados = 0
+    
     inicio = datetime.datetime.now()
     def on_press(key):
         
         if key.char == "s":
             insert(f'insert into Relatorio values(null, {idUsuario[0]}, {idMaquina}, {numeroRegistros}, {chamados}, "{inicio}", "{datetime.datetime.now()}")')
             print("Encerrando API...")
-            time.sleep(7)
             pyautogui.hotkey("Ctrl","c")
     
                     
@@ -78,9 +81,11 @@ def insertPeriodico(idMaquina, serialMaquina):
                
                 usoAtualMemoria = virtual_memory().percent
                 usoCpuPorc = cpu_percent()
-                freqCpu = round(cpu_freq().current,0)
+               
             
-                
+                if(usoAtualMemoria > 40):
+                    abrirChamado('RAM', serial, usoAtualMemoria, 40)
+                    
 
 
                 particoes = []
@@ -111,7 +116,45 @@ def insertPeriodico(idMaquina, serialMaquina):
                 
                 numeroRegistros+=1
             
-            
+def abrirChamado(componente, serial, valorAtual, metrica):
+    url = "https://api.pipefy.com/graphql"
+
+    query = {"query": "{allCards(pipeId: 302763672) {edges {node {id title age}}}}"}
+
+    headers = {
+        "accept": "application/json",
+        "content-type": "application/json",
+        "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIwODY5MjUsImVtYWlsIjoiam9hby5jb25jZWljYW9Ac3B0ZWNoLnNjaG9vbCIsImFwcGxpY2F0aW9uIjozMDAyMDc0NzZ9fQ.SRZx-58-x8HKCSTanwLU7MzGVoenpQwrmFpDppWzJduSo8NDJKtAw65ECGCGWEOO_1SJ65LnacQmgQ0aEIunXA"
+    }
+
+    response = requests.post(url, json=query, headers=headers)
+    jason = response.text
+    data = loads(jason)
+
+    dados = data['data']['allCards']['edges']
+
+    if valorAtual < metrica:
+        problema = f'A {componente} está acima de {metrica}%!'
+    elif valorAtual > metrica:
+        problema = f'A {componente} está abaixo de {metrica}%!'
+
+    temIgual = False
+    i = 0
+    while i < len(dados):
+        age = dados[i]['node']['age']
+        titulo = dados[i]['node']['title']
+        if age <86400 and titulo == problema:
+            temIgual = True
+        i += 1
+    payload = {'query':  'mutation{createCard(input: {pipe_id:302763672, title: "Novo Card", fields_attributes: [{field_id: "qual_o_serial_da_m_quina", field_value: "%s"} {field_id: "qual_o_componente_afetado", field_value: "%s"}{field_id: "problema", field_value: "%s"}{field_id: "mais_informa_es", field_value: "A %s da máquina de serial %s atingiu um uso de %.2f. Valor fora do limite estabelecido de %.2f"}]}){card {title}}}' % (serial, componente, problema, componente, serial, valorAtual, metrica)}
+
+    if temIgual:
+        print('o card ja existe')
+    else:
+        criar = requests.post(url, json=payload, headers=headers)
+        global chamados
+        chamados += 1
+          
 entrou = False
 while entrou ==False:
     print(f"Bem vindo, faça login para iniciar a captura!")
@@ -123,7 +166,21 @@ while entrou ==False:
         print('erro')
         print(resultado)
     else:
-        
+        url = "https://api.pipefy.com/graphql"
+
+        query = {"query": "{me {id}}"}
+
+        headers = {
+            "accept": "application/json",
+            "content-type": "application/json",
+            "authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIwODY5MjUsImVtYWlsIjoiam9hby5jb25jZWljYW9Ac3B0ZWNoLnNjaG9vbCIsImFwcGxpY2F0aW9uIjozMDAyMDc0NzZ9fQ.SRZx-58-x8HKCSTanwLU7MzGVoenpQwrmFpDppWzJduSo8NDJKtAw65ECGCGWEOO_1SJ65LnacQmgQ0aEIunXA"
+        }
+
+        response = requests.post(url, json=query, headers=headers)
+        jason = response.text
+        data = loads(jason)
+        idPipefy = data['data']['me']['id']
+        insert(f"update usuario set idPipefy = '{idPipefy}' where email = '{email}'")
         print('Login feito com sucesso!')
         serial = input("Digite o serial da máquina: ")
         idMaquina = select(f"select idMaquina from maquina where serialMaquina = '{serial}'")

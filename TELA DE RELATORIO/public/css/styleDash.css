@@ -372,8 +372,16 @@ h1,h2,h3 {
     
 }
 
+#exibir_monitorados {
+    width: 90%;
+    height: 50%;
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+}
 
-.box_user {
+
+.box_user, .box_maquina {
     padding-left: 2% ;
     margin-bottom: 2vh;
     color: white;
@@ -383,6 +391,7 @@ h1,h2,h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: auto;
 }
 .box_user button{
     border:none;
@@ -479,20 +488,31 @@ h1,h2,h3 {
    display: flex;
 }
 .dados_gerais1, .dados_gerais2 {
-height: 100%;
-width: 100%;
+
+padding: 0px 12px;
+}
+.dados_gerais1 {
+    border-right: 0.5px gray solid;
+    border-radius: 0px;
 }
 
 .dados_gerais1 div, .dados_gerais2 div{
     
     height: 50%;
     width: 100%;
-    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.participacao {
+.info_user {
     width: 95%;
     height: 45%;
     background-color: var(--preto-header);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+
 

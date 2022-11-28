@@ -90,6 +90,7 @@ function entrar() {
                     sessionStorage.CARGO_USUARIO = json.cargo;
                     sessionStorage.USUARIO_ANALISE = null;
                     sessionStorage.NOME_USUARIO_ANALISE = null;
+                   
     
                     
                     window.location = "dashboard/dashboard.html";

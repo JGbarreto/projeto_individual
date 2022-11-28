@@ -529,7 +529,7 @@ function buscarInfoMaquina(idMaquina) {
 
             })
         } else {
-            console.log("VAI TOMAR NO CUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU")
+            console.log("ta")
         }
     })
 }
@@ -579,14 +579,14 @@ function plotarGraficoUser(cpu, ram) {
         labels: momento,
         datasets: [{
             label: 'CPU',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'white',
+            borderColor: 'white',
             data: cpuDados,
         },
         {
             label: 'RAM',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'white',
+            borderColor: 'white',
             data: ramDados,
         }]
     };
@@ -635,14 +635,14 @@ function plotarGraficoQtdPorUser(retorno) {
     const data = {
         labels: dia,
         datasets: [{
-            label: 'CPU',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            label: 'Quantidade',
+            backgroundColor: 'white',
+            borderColor: 'white',
             data: qtdDados,
         }]
     };
     const config = {
-        type: 'line',
+        type: 'bar',
         data: data,
         options: {
             responsive: true,
@@ -722,6 +722,7 @@ function gerarGraficoQtdPorUser(idUsuario, idMaquina) {
                 resposta.json().then(function (retorno) {
                     console.log(`Dados recebidos: ${JSON.stringify(retorno)}`);
                     console.log(retorno)
+                    tempoAtividade.innerHTML = retorno.length
                     plotarGraficoQtdPorUser(retorno)
                     
                     

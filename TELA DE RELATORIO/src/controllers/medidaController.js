@@ -171,6 +171,28 @@ function buscarServidores(req, res) {
             }
         );
 }
+function buscarMonitorados(req, res) {
+
+    
+    var idUsuario = req.body.idUsuario;
+    
+
+    medidaModel.buscarMonitorados(idUsuario)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta dos servidores! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 
 function infoMaquina(req, res){
 
@@ -200,7 +222,9 @@ module.exports = {
     infoMaquina,
     buscarComponentesMaquinaPorUser,
     buscarUltimosRegistrosUser,
-    qtdRegistrosPorUser
+    qtdRegistrosPorUser,
+    buscarMonitorados
+    
     
     // buscarUltimasMedidas,
     // buscarMedidasEmTempoReal

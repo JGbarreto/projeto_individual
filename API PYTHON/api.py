@@ -83,8 +83,8 @@ def insertPeriodico(idMaquina, serialMaquina):
                 usoCpuPorc = cpu_percent()
                
             
-                if(usoAtualMemoria > 40):
-                    abrirChamado('RAM', serial, usoAtualMemoria, 40)
+                if(usoAtualMemoria > 50):
+                    abrirChamado('RAM', serial, usoAtualMemoria, 50)
                     
 
 
@@ -133,17 +133,17 @@ def abrirChamado(componente, serial, valorAtual, metrica):
 
     dados = data['data']['allCards']['edges']
 
-    if valorAtual < metrica:
-        problema = f'A {componente} está acima de {metrica}%!'
-    elif valorAtual > metrica:
-        problema = f'A {componente} está abaixo de {metrica}%!'
+    if valorAtual > metrica:
+        problema = f'A {componente} da maquina de serial {serial} está acima de {metrica}%!'
+    elif valorAtual < metrica:
+        problema = f'A {componente} da maquina de serial {serial} está abaixo de {metrica}%!'
 
     temIgual = False
     i = 0
     while i < len(dados):
         age = dados[i]['node']['age']
         titulo = dados[i]['node']['title']
-        if age <86400 and titulo == problema:
+        if age < 86400 and titulo == problema:
             temIgual = True
         i += 1
     payload = {'query':  'mutation{createCard(input: {pipe_id:302763672, title: "Novo Card", fields_attributes: [{field_id: "qual_o_serial_da_m_quina", field_value: "%s"} {field_id: "qual_o_componente_afetado", field_value: "%s"}{field_id: "problema", field_value: "%s"}{field_id: "mais_informa_es", field_value: "A %s da máquina de serial %s atingiu um uso de %.2f. Valor fora do limite estabelecido de %.2f"}]}){card {title}}}' % (serial, componente, problema, componente, serial, valorAtual, metrica)}
@@ -159,7 +159,7 @@ entrou = False
 while entrou ==False:
     print(f"Bem vindo, faça login para iniciar a captura!")
     email = input('Digite o seu email: ')
-    senha = getpass.getpass('Digite a sua senha')
+    senha = getpass.getpass('Digite a sua senha: ')
     query = f"select * from usuario where email = '{email}' and senha = md5('{senha}');"
     resultado = select(query)
     if resultado == None:
